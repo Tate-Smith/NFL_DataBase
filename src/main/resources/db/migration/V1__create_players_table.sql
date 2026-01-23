@@ -1,9 +1,0 @@
-CREATE TABLE players (
-    id SERIAL PRIMARY KEY,
-    external_id TEXT NOT NULL UNIQUE,
-    full_name TEXT NOT NULL,
-    position TEXT NOT NULL,
-    status TEXT NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
