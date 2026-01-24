@@ -1,7 +1,7 @@
-package Service;
+package com.Tate.NFL_db.Service;
 
-import Model.Player;
-import Model.PlayerRepository;
+import com.Tate.NFL_db.Model.Player;
+import com.Tate.NFL_db.Model.PlayerRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

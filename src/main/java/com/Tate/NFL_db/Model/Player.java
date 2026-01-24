@@ -1,6 +1,7 @@
-package Model;
+package com.Tate.NFL_db.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +12,8 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(nullable = false, unique = true)
-    private int externalId;
+    private String externalId;
+    @NotBlank
     @Column(nullable = false)
     private String fullName;
     @Enumerated(EnumType.STRING)
@@ -20,13 +22,26 @@ public class Player {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public Player(int id, int externalId, String fullName, Position position, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
+    public Player() {
+    }
+
+    public Player(String externalId, String fullName, Position position, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.externalId = externalId;
         this.fullName = fullName;
         this.position = position;
@@ -43,11 +58,11 @@ public class Player {
         this.id = id;
     }
 
-    public int getExternalId() {
+    public String getExternalId() {
         return externalId;
     }
 
-    public void setExternalId(int externalId) {
+    public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
 
