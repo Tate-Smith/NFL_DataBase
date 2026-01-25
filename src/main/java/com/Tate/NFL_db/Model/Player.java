@@ -54,10 +54,6 @@ public class Player {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getExternalId() {
         return externalId;
     }
@@ -88,18 +84,6 @@ public class Player {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
     }
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
