@@ -2,6 +2,7 @@ package com.Tate.NFL_db.Controller;
 
 import com.Tate.NFL_db.Model.Player;
 import com.Tate.NFL_db.Service.PlayerService;
+import com.Tate.NFL_db.dto.PlayerDTO;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,27 +19,27 @@ public class PlayerController {
     }
 
     @GetMapping
-    public List<Player> getPlayers() {
+    public List<PlayerDTO> getPlayers() {
         return playerService.getAllPlayers();
     }
 
     @GetMapping("/{id}")
-    public Player getPlayerById(@PathVariable int id) {
+    public PlayerDTO getPlayerById(@PathVariable int id) {
         return playerService.getPlayerById(id);
     }
 
     @PostMapping
-    public Player createPlayer(@Valid @RequestBody Player player) {
-        return playerService.createPlayer(player);
+    public PlayerDTO createPlayer(@Valid @RequestBody PlayerDTO playerDTO) {
+        return playerService.createPlayer(playerDTO);
     }
 
     @PutMapping("/{id}")
-    public Player updatePlayer(@PathVariable int id, @Valid @RequestBody Player player) {
-        return playerService.updatePlayer(id, player);
+    public PlayerDTO updatePlayer(@PathVariable int id, @Valid @RequestBody PlayerDTO playerDTO) {
+        return playerService.updatePlayer(id, playerDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePlayer(@PathVariable int id) {
-        playerService.deletePlayer(id);
+    public String deletePlayer(@PathVariable int id) {
+        return playerService.deletePlayer(id);
     }
 }

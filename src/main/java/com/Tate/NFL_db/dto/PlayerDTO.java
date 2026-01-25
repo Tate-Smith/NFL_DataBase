@@ -1,17 +1,22 @@
 package com.Tate.NFL_db.dto;
 
+import com.Tate.NFL_db.Model.Position;
+import com.Tate.NFL_db.Model.Status;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class PlayerDTO {
     @NotBlank
+    @Size(min = 1, max = 10, message = "ExternalId must be between 1 and 10 inclusive")
     private String externalId;
     @NotBlank
+    @Size(min = 2, max = 75, message = "Full Name must be between 2 and 75 inclusive")
     private String fullName;
     @NotNull
-    private String position;
+    private Position position;
     @NotNull
-    private String status;
+    private Status status;
 
     public String getExternalId() {
         return externalId;
@@ -29,19 +34,19 @@ public class PlayerDTO {
         this.fullName = fullName;
     }
 
-    public String getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }
