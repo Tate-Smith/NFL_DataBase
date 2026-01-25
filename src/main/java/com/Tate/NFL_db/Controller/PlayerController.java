@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@ControllerAdvice
 @RequestMapping("/players")
 public class PlayerController {
     private final PlayerService playerService;
