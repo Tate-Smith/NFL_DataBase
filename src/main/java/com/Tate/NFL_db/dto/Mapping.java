@@ -7,10 +7,14 @@ import com.Tate.NFL_db.Model.Team;
 public class Mapping {
     public static PlayerDTO playerToDto(Player player) {
         PlayerDTO playerDTO = new PlayerDTO();
+        playerDTO.setId(player.getId());
         playerDTO.setPosition(player.getPosition());
         playerDTO.setStatus(player.getStatus());
         playerDTO.setExternalId(player.getExternalId());
         playerDTO.setFullName(player.getFullName());
+        Team playerTeam = player.getTeam();
+        if (playerTeam != null) playerDTO.setTeamExternalId(playerTeam.getExternalId());
+        else playerDTO.setTeamExternalId(null);
         return playerDTO;
     }
 
@@ -25,6 +29,7 @@ public class Mapping {
 
     public static TeamDTO teamToDto(Team team) {
         TeamDTO teamDTO = new TeamDTO();
+        teamDTO.setId(team.getId());
         teamDTO.setName(team.getName());
         teamDTO.setCity(team.getCity());
         teamDTO.setExternalId(team.getExternalId());
@@ -43,6 +48,8 @@ public class Mapping {
 
     public static StatsDTO statsToDto(Stats stats) {
         StatsDTO statsDTO = new StatsDTO();
+        statsDTO.setId(stats.getId());
+        statsDTO.setPlayerExternalId(stats.getPlayer().getExternalId());
         statsDTO.setCompletions(stats.getCompletions());
         statsDTO.setCompletionPercentage(stats.getCompletionPercentage());
         statsDTO.setFieldGoalAttempts(stats.getFieldGoalAttempts());

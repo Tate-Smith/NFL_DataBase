@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "players")
@@ -26,6 +28,11 @@ public class Player {
     private LocalDateTime createdAt;
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Stats> stats = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
@@ -88,5 +95,27 @@ public class Player {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Team getTeam() {
+        return this.team;
+    }
+
+    public void addStats(Stats stats) {
+        this.stats.add(stats);
+        stats.setPlayer(this);
+    }
+
+    public void removeStats(Stats stats) {
+        this.stats.remove(stats);
+        stats.setPlayer(null);
+    }
+
+    public List<Stats> getStats() {
+        return this.stats;
     }
 }

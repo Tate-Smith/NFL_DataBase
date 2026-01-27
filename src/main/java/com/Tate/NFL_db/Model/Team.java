@@ -3,6 +3,8 @@ package com.Tate.NFL_db.Model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Teams")
@@ -22,6 +24,8 @@ public class Team {
     private LocalDateTime createdAt;
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    private List<Player> players = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
@@ -84,5 +88,19 @@ public class Team {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public void addPlayer(Player player) {
+        this.players.add(player);
+        player.setTeam(this);
+    }
+
+    public void removePlayer(Player player) {
+        this.players.remove(player);
+        player.setTeam(null);
+    }
+
+    public List<Player> getPlayers() {
+        return this.players;
     }
 }

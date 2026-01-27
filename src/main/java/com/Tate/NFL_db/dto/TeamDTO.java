@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class TeamDTO {
+    private int id;
     @NotBlank
     @Size(min = 1, max = 10, message = "ExternalId must be between 1 and 10 inclusive")
     private String externalId;
@@ -16,6 +17,14 @@ public class TeamDTO {
     @NotBlank
     @Size(min = 2, max = 4, message = "Abbreviation must be between 2 and 4 inclusive")
     private String abbreviation;
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getExternalId() {
         return externalId;

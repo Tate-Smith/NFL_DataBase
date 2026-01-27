@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class PlayerDTO {
+    private int id;
     @NotBlank
     @Size(min = 1, max = 10, message = "ExternalId must be between 1 and 10 inclusive")
     private String externalId;
@@ -17,6 +18,23 @@ public class PlayerDTO {
     private Position position;
     @NotNull
     private Status status;
+    private String teamExternalId;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTeamExternalId() {
+        return this.teamExternalId;
+    }
+
+    public void setTeamExternalId(String teamExternalId) {
+        this.teamExternalId = teamExternalId;
+    }
 
     public String getExternalId() {
         return externalId;

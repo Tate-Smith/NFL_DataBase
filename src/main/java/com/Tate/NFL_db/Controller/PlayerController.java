@@ -23,8 +23,8 @@ public class PlayerController {
     }
 
     @GetMapping("/{id}")
-    public PlayerDTO getPlayerById(@PathVariable int id) {
-        return playerService.getPlayerById(id);
+    public PlayerDTO getPlayerById(@PathVariable String externalId) {
+        return playerService.getPlayerById(externalId);
     }
 
     @PostMapping
@@ -33,12 +33,12 @@ public class PlayerController {
     }
 
     @PutMapping("/{id}")
-    public PlayerDTO updatePlayer(@PathVariable int id, @Valid @RequestBody PlayerDTO playerDTO) {
-        return playerService.updatePlayer(id, playerDTO);
+    public PlayerDTO updatePlayer(@PathVariable String externalId, @Valid @RequestBody PlayerDTO playerDTO) {
+        return playerService.updatePlayer(externalId, playerDTO);
     }
 
     @DeleteMapping("/{id}")
-    public String deletePlayer(@PathVariable int id) {
-        return playerService.deletePlayer(id);
+    public String deletePlayer(@PathVariable String externalId) {
+        return playerService.deletePlayer(externalId);
     }
 }

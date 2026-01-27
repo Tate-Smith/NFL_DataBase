@@ -1,9 +1,13 @@
 package com.Tate.NFL_db.Service;
 
 import com.Tate.NFL_db.Model.Player;
-import com.Tate.NFL_db.Model.PlayerRepository;
+import com.Tate.NFL_db.Model.Stats;
+import com.Tate.NFL_db.Repositories.PlayerRepository;
 import com.Tate.NFL_db.dto.Mapping;
 import com.Tate.NFL_db.dto.PlayerDTO;
+import com.Tate.NFL_db.dto.StatsDTO;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,18 +28,29 @@ public class PlayerService {
                 .collect(Collectors.toList());
     }
 
-    public PlayerDTO getPlayerById(int id) {
-        return Mapping.playerToDto(playerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Player Not Found")));
+    public PlayerDTO getPlayerById(String externalId) {
+        return Mapping.playerToDto(playerRepository.findByExternalId(externalId)
+                .orElseThrow(() -> new EntityNotFoundException("Player Not Found")));
     }
 
+    public List<StatsDTO> getPlayersStats(String externalId) {
+        Player cur = playerRepository.findByExternalId(externalId)
+                .orElseThrow(() -> new EntityNotFoundException("Player Not Found"));
+
+        return cur.getStats().stream()
+                .map(Mapping::statsToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public PlayerDTO createPlayer(PlayerDTO playerDTO) {
         return Mapping.playerToDto(playerRepository.save(Mapping.dtoToPlayer(playerDTO)));
     }
 
-    public PlayerDTO updatePlayer(int id, PlayerDTO playerDTO) {
-        Player cur = playerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Player Not Found"));
+    @Transactional
+    public PlayerDTO updatePlayer(String externalId, PlayerDTO playerDTO) {
+        Player cur = playerRepository.findByExternalId(externalId)
+                .orElseThrow(() -> new EntityNotFoundException("Player Not Found"));
 
         cur.setFullName(playerDTO.getFullName());
         cur.setStatus(playerDTO.getStatus());
@@ -46,8 +61,12 @@ public class PlayerService {
         return Mapping.playerToDto(playerRepository.save(cur));
     }
 
-    public String deletePlayer(int id) {
-        playerRepository.deleteById(id);
-        return "Player with id: " + id + " deleted.";
+    @Transactional
+    public String deletePlayer(String externalId) {
+        Player player = playerRepository.findByExternalId(externalId)
+                .orElseThrow(() -> new EntityNotFoundException("Player Not Found"));
+
+        playerRepository.delete(player);
+        return "Player: " + externalId + " deleted.";
     }
 }

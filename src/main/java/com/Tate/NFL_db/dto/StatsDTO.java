@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import java.time.Year;
 
 public class StatsDTO {
+    private int id;
+    @NotNull(message = "Player external Id is required")
+    private String  playerExternalId;
     @NotNull
     private Year season;
     @Min(0)
@@ -40,6 +43,22 @@ public class StatsDTO {
     private double kickoffReturnAverage;
     private double puntReturnAverage;
     private int returnTouchdowns;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPlayerExternalId() {
+        return playerExternalId;
+    }
+
+    public void setPlayerExternalId(String playerExternalId) {
+        this.playerExternalId = playerExternalId;
+    }
 
     public Year getSeason() {
         return season;

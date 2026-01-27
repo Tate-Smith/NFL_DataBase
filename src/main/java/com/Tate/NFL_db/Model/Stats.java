@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.time.Year;
 
 @Entity
+@Table(indexes = {
+        @Index(name = "idx_player_season", columnList = "player_Id, season")
+})
 public class Stats {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,13 +83,16 @@ public class Stats {
     private LocalDateTime createdAt;
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "player_id", nullable = false)
+    private Player player;
 
     public Stats() {
     }
 
     public Stats(Year season, int gamesPlayed, int passingAttempts, int completions, int passingYards, int passingTouchdowns,
                  int interceptions, double completionPercentage, double qbr, int rushingYards, int rushingAttempts, int rushingTouchdowns,
-                 int yardsPerRush, int receptions, int targets, int receivingYards, int receivingTouchdowns, int totalTackles,
+                 double yardsPerRush, int receptions, int targets, int receivingYards, int receivingTouchdowns, int totalTackles,
                  int soloTackles, int tacklesForLoss, double sacks, int hurries, int quarterbackHits, int passDeflections, int forcedFumbles,
                  int fumbleRecoveries, int fieldGoalAttempts, int fieldGoalsMade, double puntAverage, double kickoffReturnAverage,
                  double puntReturnAverage, int returnTouchdowns, LocalDateTime createdAt, LocalDateTime updatedAt) {
@@ -399,5 +405,13 @@ public class Stats {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Player getPlayer() {
+        return this.player;
     }
 }
