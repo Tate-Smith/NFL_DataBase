@@ -1,7 +1,6 @@
 package com.Tate.NFL_db.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.time.Year;
 
@@ -12,36 +11,68 @@ public class StatsDTO {
     @NotNull
     private Year season;
     @Min(0)
+    @Max(21)
     private int gamesPlayed;
+    @Min(0)
     private int passingAttempts;
+    @Min(0)
     private int completions;
     private int passingYards;
+    @Min(0)
     private int passingTouchdowns;
+    @Min(0)
     private int interceptions;
+    @DecimalMin("0")
+    @DecimalMax("100")
     private double completionPercentage;
+    @DecimalMin("0")
+    @DecimalMax("100")
     private double qbr;
     private int rushingYards;
+    @Min(0)
     private int rushingAttempts;
+    @Min(0)
     private int rushingTouchdowns;
     private double yardsPerRush;
+    @Min(0)
     private int receptions;
+    @Min(0)
     private int targets;
     private int receivingYards;
+    @Min(0)
     private int receivingTouchdowns;
+    @Min(0)
     private int totalTackles;
+    @Min(0)
     private int soloTackles;
+    @Min(0)
     private int tacklesForLoss;
+    @Min(0)
     private double sacks;
+    @Min(0)
     private int hurries;
+    @Min(0)
     private int quarterbackHits;
+    @Min(0)
     private int passDeflections;
+    @Min(0)
     private int forcedFumbles;
+    @Min(0)
     private int fumbleRecoveries;
+    @Min(0)
     private int fieldGoalAttempts;
+    @Min(0)
     private int fieldGoalsMade;
+    @DecimalMin("-110")
+    @DecimalMax("110")
     private double puntAverage;
+    @DecimalMin("-110")
+    @DecimalMax("110")
     private double kickoffReturnAverage;
+    @DecimalMin("-110")
+    @DecimalMax("110")
     private double puntReturnAverage;
+    @Min(0)
     private int returnTouchdowns;
 
     public int getId() {
