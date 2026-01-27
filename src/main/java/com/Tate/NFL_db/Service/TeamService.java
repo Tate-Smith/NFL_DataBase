@@ -29,12 +29,12 @@ public class TeamService {
 
     public TeamDTO getTeamById(String externalId) {
         return Mapping.teamToDto(teamRepository.findByExternalId(externalId)
-                .orElseThrow(() -> new EntityNotFoundException("Team Not Found")));
+                .orElseThrow(() -> new EntityNotFoundException("Team with external id: " + externalId + " not found")));
     }
 
     public List<PlayerDTO> getTeamsPlayers(String externalId) {
         Team cur = teamRepository.findByExternalId(externalId)
-                .orElseThrow(() -> new EntityNotFoundException("Team Not Found"));
+                .orElseThrow(() -> new EntityNotFoundException("Team with external id: " + externalId + " not found"));
 
         return cur.getPlayers().stream()
                 .map(Mapping::playerToDto)
@@ -49,7 +49,7 @@ public class TeamService {
     @Transactional
     public TeamDTO updateTeam(String externalId, TeamDTO teamDTO) {
         Team cur = teamRepository.findByExternalId(externalId)
-                .orElseThrow(() -> new EntityNotFoundException("Team Not Found"));
+                .orElseThrow(() -> new EntityNotFoundException("Team with external id: " + externalId + " not found"));
 
         cur.setName(teamDTO.getName());
         cur.setCity(teamDTO.getCity());
@@ -63,9 +63,9 @@ public class TeamService {
     @Transactional
     public String deleteTeam(String externalId) {
         Team team = teamRepository.findByExternalId(externalId)
-                .orElseThrow(() -> new EntityNotFoundException("Team Not Found"));
+                .orElseThrow(() -> new EntityNotFoundException("Team with external id: " + externalId + " not found"));
 
         teamRepository.delete(team);
-        return "Team:" + externalId + " deleted.";
+        return "Team with externalId: " + externalId + " deleted.";
     }
 }

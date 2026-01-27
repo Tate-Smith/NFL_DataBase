@@ -30,12 +30,12 @@ public class PlayerService {
 
     public PlayerDTO getPlayerById(String externalId) {
         return Mapping.playerToDto(playerRepository.findByExternalId(externalId)
-                .orElseThrow(() -> new EntityNotFoundException("Player Not Found")));
+                .orElseThrow(() -> new EntityNotFoundException("Player with external id: " + externalId + " not found")));
     }
 
     public List<StatsDTO> getPlayersStats(String externalId) {
         Player cur = playerRepository.findByExternalId(externalId)
-                .orElseThrow(() -> new EntityNotFoundException("Player Not Found"));
+                .orElseThrow(() -> new EntityNotFoundException("Player with external id: " + externalId + " not found"));
 
         return cur.getStats().stream()
                 .map(Mapping::statsToDto)
@@ -50,7 +50,7 @@ public class PlayerService {
     @Transactional
     public PlayerDTO updatePlayer(String externalId, PlayerDTO playerDTO) {
         Player cur = playerRepository.findByExternalId(externalId)
-                .orElseThrow(() -> new EntityNotFoundException("Player Not Found"));
+                .orElseThrow(() -> new EntityNotFoundException("Player with external id: " + externalId + " not found"));
 
         cur.setFullName(playerDTO.getFullName());
         cur.setStatus(playerDTO.getStatus());
@@ -64,9 +64,9 @@ public class PlayerService {
     @Transactional
     public String deletePlayer(String externalId) {
         Player player = playerRepository.findByExternalId(externalId)
-                .orElseThrow(() -> new EntityNotFoundException("Player Not Found"));
+                .orElseThrow(() -> new EntityNotFoundException("Player with external id: " + externalId + " not found"));
 
         playerRepository.delete(player);
-        return "Player: " + externalId + " deleted.";
+        return "Player with externalId: " + externalId + " deleted.";
     }
 }

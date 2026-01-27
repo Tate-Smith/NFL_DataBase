@@ -27,20 +27,20 @@ public class StatsService {
 
     public StatsDTO getStatsById(int id) {
         return Mapping.statsToDto(statsRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Stats Not Found")));
+                .orElseThrow(() -> new EntityNotFoundException("Stats with id: " + id + " not found")));
     }
 
-    public  StatsDTO getPlayersStatsBySeason(String externalId, Year season) {
+    public StatsDTO getPlayersStatsBySeason(String externalId, Year season) {
         Player player = playerRepository.findByExternalId(externalId)
-                .orElseThrow(() -> new EntityNotFoundException("Player Not Found"));
+                .orElseThrow(() -> new EntityNotFoundException("Player with external id: " + externalId + " not found"));
 
         return Mapping.statsToDto(statsRepository.findByPlayerAndSeason(player, season)
-                .orElseThrow(() -> new EntityNotFoundException("Stats Not Found")));
+                .orElseThrow(() -> new EntityNotFoundException("Stats with player external id: " + externalId + " not found")));
     }
 
     public List<StatsDTO> getAllPlayersStats(String externalId) {
         Player player = playerRepository.findByExternalId(externalId)
-                .orElseThrow(() -> new EntityNotFoundException("Player Not Found"));
+                .orElseThrow(() -> new EntityNotFoundException("Player with external id: " + externalId + " not found"));
 
         return statsRepository.findByPlayer(player).stream()
                 .map(Mapping::statsToDto)
@@ -50,7 +50,7 @@ public class StatsService {
     @Transactional
     public StatsDTO createStats(StatsDTO statsDTO) {
         Player player = playerRepository.findByExternalId(statsDTO.getPlayerExternalId())
-                .orElseThrow(() -> new EntityNotFoundException("Player Not Found"));
+                .orElseThrow(() -> new EntityNotFoundException("Player with external id: " + statsDTO.getPlayerExternalId() + " not found"));
 
         Stats stats = Mapping.dtoToStats(statsDTO);
         stats.setPlayer(player);
@@ -60,7 +60,7 @@ public class StatsService {
     @Transactional
     public StatsDTO updateStats(int id, StatsDTO dto) {
         Stats stats = statsRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Stats Not Found"));
+                .orElseThrow(() -> new EntityNotFoundException("Stats with id: " + id + " not found"));
 
         stats.setCompletions(dto.getCompletions());
         stats.setCompletionPercentage(dto.getCompletionPercentage());
@@ -102,7 +102,7 @@ public class StatsService {
     @Transactional
     public void deleteStats(int id) {
         if (!statsRepository.existsById(id)) {
-            throw new EntityNotFoundException("Stats not found");
+            throw new EntityNotFoundException("Stats with id: " + id + " not found");
         }
         statsRepository.deleteById(id);
     }

@@ -1,15 +1,17 @@
 package com.Tate.NFL_db.Controller;
 
-import com.Tate.NFL_db.Model.Player;
 import com.Tate.NFL_db.Service.PlayerService;
 import com.Tate.NFL_db.dto.PlayerDTO;
+import com.Tate.NFL_db.dto.StatsDTO;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/players")
+@RequestMapping("/api/players")
 public class PlayerController {
     private final PlayerService playerService;
 
@@ -18,27 +20,33 @@ public class PlayerController {
     }
 
     @GetMapping
-    public List<PlayerDTO> getPlayers() {
-        return playerService.getAllPlayers();
+    public ResponseEntity<List<PlayerDTO>> getPlayers() {
+        return ResponseEntity.ok(playerService.getAllPlayers());
     }
 
-    @GetMapping("/{id}")
-    public PlayerDTO getPlayerById(@PathVariable String externalId) {
-        return playerService.getPlayerById(externalId);
+    @GetMapping("/{externalId}")
+    public ResponseEntity<PlayerDTO> getPlayerById(@PathVariable String externalId) {
+        return ResponseEntity.ok(playerService.getPlayerById(externalId));
+    }
+
+    @GetMapping("/{externalId}/stats")
+    public ResponseEntity<List<StatsDTO>> getPlayerStats(@PathVariable String externalId) {
+        return ResponseEntity.ok(playerService.getPlayersStats(externalId));
     }
 
     @PostMapping
-    public PlayerDTO createPlayer(@Valid @RequestBody PlayerDTO playerDTO) {
-        return playerService.createPlayer(playerDTO);
+    public ResponseEntity<PlayerDTO> createPlayer(@Valid @RequestBody PlayerDTO playerDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(playerService.createPlayer(playerDTO));
     }
 
-    @PutMapping("/{id}")
-    public PlayerDTO updatePlayer(@PathVariable String externalId, @Valid @RequestBody PlayerDTO playerDTO) {
-        return playerService.updatePlayer(externalId, playerDTO);
+    @PutMapping("/{externalId}")
+    public ResponseEntity<PlayerDTO> updatePlayer(@PathVariable String externalId, @Valid @RequestBody PlayerDTO playerDTO) {
+        return ResponseEntity.ok(playerService.updatePlayer(externalId, playerDTO));
     }
 
-    @DeleteMapping("/{id}")
-    public String deletePlayer(@PathVariable String externalId) {
-        return playerService.deletePlayer(externalId);
+    @DeleteMapping("/{externalId}")
+    public ResponseEntity<String> deletePlayer(@PathVariable String externalId) {
+        return ResponseEntity.ok(playerService.deletePlayer(externalId));
     }
 }
