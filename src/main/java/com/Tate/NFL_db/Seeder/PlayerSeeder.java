@@ -31,7 +31,6 @@ public class PlayerSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        playerRepository.deleteAll();
         if (playerRepository.count() > 0) return;
 
         List<Team> teams = teamRepository.findAll();
