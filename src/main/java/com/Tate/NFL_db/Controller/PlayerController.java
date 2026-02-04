@@ -2,7 +2,6 @@ package com.Tate.NFL_db.Controller;
 
 import com.Tate.NFL_db.Service.PlayerService;
 import com.Tate.NFL_db.dto.PlayerDTO;
-import com.Tate.NFL_db.dto.StatsDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +26,6 @@ public class PlayerController {
     @GetMapping("/{externalId}")
     public ResponseEntity<PlayerDTO> getPlayerById(@PathVariable String externalId) {
         return ResponseEntity.ok(playerService.getPlayerById(externalId));
-    }
-
-    @GetMapping("/{externalId}/stats")
-    public ResponseEntity<List<StatsDTO>> getPlayerStats(@PathVariable String externalId) {
-        return ResponseEntity.ok(playerService.getPlayersStats(externalId));
     }
 
     @PostMapping
