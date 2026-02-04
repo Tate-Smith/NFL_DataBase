@@ -1,11 +1,9 @@
 package com.Tate.NFL_db.Service;
 
 import com.Tate.NFL_db.Model.Player;
-import com.Tate.NFL_db.Model.Stats;
 import com.Tate.NFL_db.Repositories.PlayerRepository;
 import com.Tate.NFL_db.dto.Mapping;
 import com.Tate.NFL_db.dto.PlayerDTO;
-import com.Tate.NFL_db.dto.StatsDTO;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -31,15 +29,6 @@ public class PlayerService {
     public PlayerDTO getPlayerById(String externalId) {
         return Mapping.playerToDto(playerRepository.findByExternalId(externalId)
                 .orElseThrow(() -> new EntityNotFoundException("Player with external id: " + externalId + " not found")));
-    }
-
-    public List<StatsDTO> getPlayersStats(String externalId) {
-        Player cur = playerRepository.findByExternalId(externalId)
-                .orElseThrow(() -> new EntityNotFoundException("Player with external id: " + externalId + " not found"));
-
-        return cur.getStats().stream()
-                .map(Mapping::statsToDto)
-                .collect(Collectors.toList());
     }
 
     @Transactional

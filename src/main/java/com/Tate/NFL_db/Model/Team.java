@@ -41,13 +41,11 @@ public class Team {
     public Team() {
     }
 
-    public Team(String externalId, String name, String city, String abbreviation, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Team(String externalId, String name, String city, String abbreviation) {
         this.externalId = externalId;
         this.name = name;
         this.city = city;
         this.abbreviation = abbreviation;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     public int getId() {

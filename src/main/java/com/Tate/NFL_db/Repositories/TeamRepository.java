@@ -1,6 +1,5 @@
 package com.Tate.NFL_db.Repositories;
 
-import com.Tate.NFL_db.Model.Player;
 import com.Tate.NFL_db.Model.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 

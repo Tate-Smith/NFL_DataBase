@@ -1,5 +1,5 @@
 package com.Tate.NFL_db.Model;
 
 public enum Position {
-    QB, WR, RB, C, LG, RG, LT, RT, TE, FB, IDL, EDGE, LB, CB, S, K, P, LS
+    QB, WR, RB, C, G, OT, TE, FB, DT, DE, LB, S, P, LS, PK, DB, CB
 }
