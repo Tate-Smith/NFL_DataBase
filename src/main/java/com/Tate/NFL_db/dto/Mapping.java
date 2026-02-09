@@ -3,7 +3,7 @@ package com.Tate.NFL_db.dto;
 import com.Tate.NFL_db.Model.Player;
 import com.Tate.NFL_db.Model.Team;
 
-public class Mapping {
+public final class Mapping {
     public static PlayerDTO playerToDto(Player player) {
         PlayerDTO playerDTO = new PlayerDTO();
         playerDTO.setId(player.getId());
@@ -11,6 +11,8 @@ public class Mapping {
         playerDTO.setStatus(player.getStatus());
         playerDTO.setExternalId(player.getExternalId());
         playerDTO.setFullName(player.getFullName());
+        playerDTO.setTeamName(player.getTeamName());
+        playerDTO.setNumber(player.getNumber());
         Team playerTeam = player.getTeam();
         if (playerTeam != null) playerDTO.setTeamExternalId(playerTeam.getExternalId());
         else playerDTO.setTeamExternalId(null);
@@ -23,6 +25,8 @@ public class Mapping {
         player.setStatus(dto.getStatus());
         player.setPosition(dto.getPosition());
         player.setFullName(dto.getFullName());
+        player.setTeamName(dto.getTeamName());
+        player.setNumber(dto.getNumber());
         return player;
     }
 

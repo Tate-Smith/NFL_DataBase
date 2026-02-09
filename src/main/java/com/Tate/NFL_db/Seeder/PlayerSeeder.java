@@ -6,6 +6,7 @@ import com.Tate.NFL_db.Model.Status;
 import com.Tate.NFL_db.Model.Team;
 import com.Tate.NFL_db.Repositories.PlayerRepository;
 import com.Tate.NFL_db.Repositories.TeamRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,7 @@ public class PlayerSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        playerRepository.deleteAll();
         if (playerRepository.count() > 0) return;
 
         List<Team> teams = teamRepository.findAll();
@@ -40,6 +42,7 @@ public class PlayerSeeder implements CommandLineRunner {
         }
     }
 
+    @Transactional
     public void seed(Team team) {
 
         String url = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/"
@@ -57,6 +60,9 @@ public class PlayerSeeder implements CommandLineRunner {
                 newPlayer.setTeam(team);
                 newPlayer.setExternalId(player.get("id").toString());
                 newPlayer.setFullName(player.get(("fullName")).toString());
+                Object jersey = player.get("jersey");
+                newPlayer.setNumber((jersey != null ? jersey.toString() : "0"));
+                newPlayer.setTeamName(team.getName());
                 // get position and status in deeper nested loops
                 newPlayer.setPosition(Position.valueOf(
                         ((Map) player.get("position")).get("abbreviation").toString())
