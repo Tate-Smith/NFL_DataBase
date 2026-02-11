@@ -18,6 +18,11 @@ public class PlayerDTO {
     private Position position;
     @NotNull
     private Status status;
+    @NotBlank
+    @Size(min = 1, max = 2, message = "Number must between 1 and 2 digits")
+    private String number;
+    @NotBlank
+    private String teamName;
     private String teamExternalId;
 
     public int getId() {
@@ -66,5 +71,21 @@ public class PlayerDTO {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 }

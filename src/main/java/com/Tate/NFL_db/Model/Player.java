@@ -22,6 +22,10 @@ public class Player {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;
+    @Column(nullable = false)
+    private String number;
+    @Column(nullable = false)
+    private String teamName;
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
     @Column(nullable = false)
@@ -44,13 +48,31 @@ public class Player {
     public Player() {
     }
 
-    public Player(String externalId, String fullName, Position position, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Player(String externalId, String fullName, Position position, Status status, String number, String teamName, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.externalId = externalId;
         this.fullName = fullName;
         this.position = position;
         this.status = status;
+        this.number = number;
+        this.teamName = teamName;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 
     public int getId() {

@@ -88,16 +88,6 @@ public class Team {
         this.updatedAt = updatedAt;
     }
 
-    public void addPlayer(Player player) {
-        this.players.add(player);
-        player.setTeam(this);
-    }
-
-    public void removePlayer(Player player) {
-        this.players.remove(player);
-        player.setTeam(null);
-    }
-
     public List<Player> getPlayers() {
         return this.players;
     }
