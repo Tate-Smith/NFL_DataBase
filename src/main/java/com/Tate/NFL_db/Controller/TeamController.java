@@ -1,3 +1,12 @@
+/*
+This Class is the controller for the teams side of the api,
+its endpoint is at /api/v1/teams, and has multiple methods
+for things like getting all teams, getting team by externalId,
+getting all of a teams players, creating a team, updating a
+team and deleting a team, it only interacts with TeamDTOs
+not the actual Team object
+ */
+
 package com.Tate.NFL_db.Controller;
 
 import com.Tate.NFL_db.Service.TeamService;

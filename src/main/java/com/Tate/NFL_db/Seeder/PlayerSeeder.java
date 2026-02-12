@@ -1,3 +1,8 @@
+/*
+This complex class's role is to fill in the entire database with player info
+from the ESPN API
+ */
+
 package com.Tate.NFL_db.Seeder;
 
 import com.Tate.NFL_db.Model.Player;
@@ -32,11 +37,12 @@ public class PlayerSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        playerRepository.deleteAll();
+        // if the table already contains data then this doesn't need to run
         if (playerRepository.count() > 0) return;
 
         List<Team> teams = teamRepository.findAll();
 
+        // for every team in the eam repo add its players
         for (Team t : teams) {
             seed(t);
         }
@@ -45,10 +51,12 @@ public class PlayerSeeder implements CommandLineRunner {
     @Transactional
     public void seed(Team team) {
 
+        // go to a particular teams link on the ESPN API
         String url = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/"
                 + team.getExternalId()
                 + "/roster";
 
+        // get the section with the info that is required
         Map response = restTemplate.getForObject(url, Map.class);
         List<Map> athletes = (List<Map>) response.get("athletes");
 
@@ -56,6 +64,7 @@ public class PlayerSeeder implements CommandLineRunner {
             List<Map> players = (List<Map>) group.get("items");
 
             for (Map player : players) {
+                // then create a new Player object and fill out its info
                 Player newPlayer = new Player();
                 newPlayer.setTeam(team);
                 newPlayer.setExternalId(player.get("id").toString());
@@ -67,6 +76,7 @@ public class PlayerSeeder implements CommandLineRunner {
                 newPlayer.setPosition(Position.valueOf(
                         ((Map) player.get("position")).get("abbreviation").toString())
                 );
+                // set the correct status
                 if (((Map) player.get("status")).get("name").toString().equalsIgnoreCase("DAY-TO-DAY")) {
                     newPlayer.setStatus(Status.DTD);
                 }
@@ -76,6 +86,7 @@ public class PlayerSeeder implements CommandLineRunner {
                 else {
                     newPlayer.setStatus(Status.valueOf(((Map) player.get("status")).get("name").toString().toUpperCase()));
                 }
+                // add the player to the data
                 playerRepository.save(newPlayer);
             }
         }

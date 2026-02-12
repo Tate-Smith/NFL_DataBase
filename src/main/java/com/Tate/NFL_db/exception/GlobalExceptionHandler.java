@@ -1,3 +1,7 @@
+/*
+This class's purpose is to return the api error everytime one is encountered
+ */
+
 package com.Tate.NFL_db.exception;
 
 import jakarta.persistence.EntityNotFoundException;

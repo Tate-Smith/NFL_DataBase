@@ -1,3 +1,9 @@
+/*
+This mapping class's job is to convert DTOs to normal objects
+and vice versa it is used by the service classes to protect
+internal data
+ */
+
 package com.Tate.NFL_db.dto;
 
 import com.Tate.NFL_db.Model.Player;
@@ -14,6 +20,7 @@ public final class Mapping {
         playerDTO.setTeamName(player.getTeamName());
         playerDTO.setNumber(player.getNumber());
         Team playerTeam = player.getTeam();
+        // if the player doesn't have a team yet set it
         if (playerTeam != null) playerDTO.setTeamExternalId(playerTeam.getExternalId());
         else playerDTO.setTeamExternalId(null);
         return playerDTO;

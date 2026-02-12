@@ -1,3 +1,7 @@
+/*
+enum for possible player statuses
+ */
+
 package com.Tate.NFL_db.Model;
 
 public enum Status {

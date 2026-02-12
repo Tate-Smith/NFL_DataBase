@@ -1,3 +1,7 @@
+/*
+Simple class to store the restTemplate bean
+ */
+
 package com.Tate.NFL_db.Model;
 
 import org.springframework.context.annotation.Bean;

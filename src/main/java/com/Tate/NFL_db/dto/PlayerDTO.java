@@ -1,3 +1,8 @@
+/*
+This is the PlayerDTO object whose purpose is to hide internal fields
+like id and to be the class the user interacts with
+ */
+
 package com.Tate.NFL_db.dto;
 
 import com.Tate.NFL_db.Model.Position;

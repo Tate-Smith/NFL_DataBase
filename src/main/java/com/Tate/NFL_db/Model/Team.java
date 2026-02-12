@@ -1,3 +1,9 @@
+/*
+This is the team class which stores all the basic info about an NFL team,
+such as name, city, players, and abbreviation, it creates a postgreSQL table to
+persist the information
+ */
+
 package com.Tate.NFL_db.Model;
 
 import jakarta.persistence.*;

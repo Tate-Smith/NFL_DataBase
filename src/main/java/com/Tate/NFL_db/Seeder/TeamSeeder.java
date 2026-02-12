@@ -1,3 +1,8 @@
+/*
+This complex class's role is to fill in the entire database with team info
+from the ESPN API
+ */
+
 package com.Tate.NFL_db.Seeder;
 
 import com.Tate.NFL_db.Model.Team;
@@ -24,8 +29,10 @@ public class TeamSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        // if there are already teams then this doesn't need to run
         if (teamRepository.count() > 0) return;
 
+        // otherwise go to the ESPN API for teams
         String url = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams";
         Map response = restClient.getForObject(url, Map.class);
 
@@ -38,6 +45,7 @@ public class TeamSeeder implements CommandLineRunner {
         for (Map t : teamList) {
             Map team = (Map) t.get("team");
 
+            // create a new team object and fill out its fields
             Team newTeam = new Team(
               team.get("id").toString(),
               team.get("name").toString(),
@@ -45,6 +53,7 @@ public class TeamSeeder implements CommandLineRunner {
               team.get("abbreviation").toString()
             );
 
+            // add the team to the database
             teamRepository.save(newTeam);
         }
     }

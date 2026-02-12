@@ -1,3 +1,8 @@
+/*
+This is the TeamDTO object whose purpose is to hide internal fields
+like id and to be the class the user interacts with
+ */
+
 package com.Tate.NFL_db.dto;
 
 import jakarta.validation.constraints.NotBlank;

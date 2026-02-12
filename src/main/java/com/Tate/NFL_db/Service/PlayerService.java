@@ -1,3 +1,10 @@
+/*
+This is the service that is the in between of the Player controller
+and the database, it takes the requests from the client, turns the DTOs
+to real database objects with the mapping class then does whatever the
+client has requested (GET, POST, UPDATE, DELETE)
+ */
+
 package com.Tate.NFL_db.Service;
 
 import com.Tate.NFL_db.Model.Player;

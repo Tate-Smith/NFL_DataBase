@@ -1,3 +1,9 @@
+/*
+This is the player class which stores all the basic info about an NFL player,
+such as full name, team, number, and status, it creates a postgreSQL table to
+persist the information
+ */
+
 package com.Tate.NFL_db.Model;
 
 import jakarta.persistence.*;

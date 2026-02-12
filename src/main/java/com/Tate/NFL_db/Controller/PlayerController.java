@@ -1,3 +1,11 @@
+/*
+This Class is the controller for the player side of the api,
+its endpoint is at /api/v1/players, and has multiple methods
+for things like getting all players, getting players by externalId,
+creating a player, updating a player and deleting a player, it only interacts
+with PlayerDTOs not the actual Player object
+ */
+
 package com.Tate.NFL_db.Controller;
 
 import com.Tate.NFL_db.Service.PlayerService;

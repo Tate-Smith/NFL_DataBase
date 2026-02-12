@@ -1,3 +1,8 @@
+/*
+This is the API error class that holds all the info everytime
+an error happens in the api so the user can understand what happened
+ */
+
 package com.Tate.NFL_db.exception;
 
 import java.time.Instant;

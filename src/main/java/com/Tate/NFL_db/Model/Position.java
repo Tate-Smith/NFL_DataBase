@@ -1,3 +1,7 @@
+/*
+enum for possible player positions
+ */
+
 package com.Tate.NFL_db.Model;
 
 public enum Position {
