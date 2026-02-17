@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: nfl-postgres
+    environment:
+      POSTGRES_DB: nfl_db
+      POSTGRES_USER: nfl_user
+      POSTGRES_PASSWORD: nfl_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - nfl-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nfl_user -d nfl_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Spring Boot Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nfl-app
+    environment:
+      # Database connection
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/nfl_db
+      SPRING_DATASOURCE_USERNAME: nfl_user
+      SPRING_DATASOURCE_PASSWORD: nfl_password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      # Enable seeding (comment out if you don't want seed data)
+      SPRING_PROFILES_ACTIVE: seed
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - nfl-network
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+
+networks:
+  nfl-network:
+    driver: bridge
