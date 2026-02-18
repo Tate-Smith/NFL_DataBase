@@ -72,7 +72,7 @@ curl -X POST http://localhost:8080/api/v1/players \
 
 **Update a player:**
 ```bash
-curl -X PUT http://localhost:8080/api/v1/players/99999 \
+curl -X PUT http://localhost:8080/api/v1/players/56764 \
   -H "Content-Type: application/json" \
   -d '{
     "externalId": "56764",
