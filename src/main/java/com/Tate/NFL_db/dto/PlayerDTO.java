@@ -30,16 +30,9 @@ public class PlayerDTO {
     private String teamName;
     private String teamExternalId;
 
-    public int getId() {
-        return id;
-    }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getTeamExternalId() {
-        return this.teamExternalId;
     }
 
     public void setTeamExternalId(String teamExternalId) {

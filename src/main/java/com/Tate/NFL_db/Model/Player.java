@@ -19,7 +19,6 @@ public class Player {
     private int id;
     @Column(nullable = false, unique = true)
     private String externalId;
-    @NotBlank
     @Column(nullable = false)
     private String fullName;
     @Enumerated(EnumType.STRING)

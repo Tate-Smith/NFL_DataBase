@@ -52,6 +52,8 @@ public class PlayerService {
         cur.setStatus(playerDTO.getStatus());
         cur.setPosition(playerDTO.getPosition());
         cur.setExternalId(playerDTO.getExternalId());
+        cur.setNumber(playerDTO.getNumber());
+        cur.setTeamName(playerDTO.getTeamName());
         cur.setUpdatedAt(LocalDateTime.now());
 
         return Mapping.playerToDto(playerRepository.save(cur));
